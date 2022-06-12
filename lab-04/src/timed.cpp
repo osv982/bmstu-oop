@@ -23,7 +23,7 @@ void Timed::clock(QObject *recv, const char *slot)
     sched(recv, slot);
 }
 
-Timed::reset()
+void Timed::reset()
 {
     // Становимся
     m_timer.stop();
