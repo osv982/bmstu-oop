@@ -2,7 +2,7 @@
 
 #include "timed.hpp"
 
-class Doors : Timed
+class Doors : public Timed
 {
     Q_OBJECT
 
@@ -10,13 +10,31 @@ public:
 
     enum class State
     {
-
+        Staying,
+        Opening,
+        Waiting,
+        Closing,
     };
 
     //! Двери лифта
     Doors() = default;
 
+public slots:
+
+    void setStaying();
+    void setOpening();
+    void setWaiting();
+    void setClosing();
+
+signals:
+
+    void staying();
+    void opening();
+    void waiting();
+    void closing();
+
 private:
 
-    State m_state;
+    //! Состояние
+    State m_state = State::Staying;
 };
