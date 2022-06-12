@@ -2,7 +2,7 @@
 
 #include <QtCore>
 
-class Timed : QObject
+class Timed : public QObject
 {
     Q_OBJECT
 
