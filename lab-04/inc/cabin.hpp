@@ -11,6 +11,7 @@ public:
     enum class State
     {
         Staying,
+        Started,
         Running,
     };
 
@@ -20,11 +21,13 @@ public:
 public slots:
 
     void setStaying();
+    void setStarted();
     void setRunning();
 
 signals:
 
     void staying();
+    void started();
     void running();
 
 private:
