@@ -22,7 +22,12 @@ public:
     //! Контроллер лифта
     Brain(Cabin &, Doors &);
 
+    //! Номер этажа
+    int floor() const;
+
 public slots:
+
+    void setSelected(int);
 
     void setStaying();
     void setOpening();
@@ -40,6 +45,15 @@ signals:
 
 private:
 
+    //! Решение
+    int solve();
+
+    //! Поиск вверх
+    int lookUp() const;
+
+    //! Поиск вниз
+    int lookDn() const;
+
     //! Кабина
     Cabin &m_cabin;
 
@@ -54,4 +68,7 @@ private:
 
     //! Направление
     bool m_climb = true;
+
+    //! Запрошенные этажи
+    bool m_asked[13] = { false };
 };
