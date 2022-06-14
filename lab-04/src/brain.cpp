@@ -1,7 +1,7 @@
 #include "brain.hpp"
 
-Brain::Brain(Cabin &cabin, Doors &doors)
-    : m_cabin(cabin), m_doors(doors)
+Brain::Brain(Cabin &cabin, Doors &doors, int count)
+    : m_cabin(cabin), m_doors(doors), m_asked(count, false)
 {
     connect(this, &Brain::opening, &m_cabin, &Cabin::setStaying);
     connect(this, &Brain::running, &m_cabin, &Cabin::setStarted);
@@ -140,7 +140,7 @@ int Brain::solve()
 
 int Brain::lookUp() const
 {
-    for (int i = m_floor; i < 14; i++)
+    for (int i = m_floor; i <= m_asked.count(); i++)
         if (m_asked[i - 1])
             return i;
 

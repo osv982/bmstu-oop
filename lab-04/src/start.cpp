@@ -12,42 +12,45 @@ class Start : public QWidget
 
 public:
 
-    Start(QWidget *parent = nullptr) : QWidget(parent)
+    explicit Start(int count, QWidget *parent = nullptr) : QWidget(parent)
     {
-        auto m_cabin = new Cabin;
-        auto m_doors = new Doors;
+        m_cabin = new Cabin;
+        m_doors = new Doors;
 
-        auto m_brain = new Brain(*m_cabin, *m_doors);
+        m_brain = new Brain(*m_cabin, *m_doors, count);
 
-        auto vLayout = new QVBoxLayout();
+        m_press = QVector<Press *>(count);
+        m_floor = QVector<Floor *>(count);
 
-        for (int i = 13; i > 0; i--)
+        auto layout = new QVBoxLayout();
+
+        for (int i = count; i > 0; i--)
         {
-            m_press[i] = new Press(*m_brain, i);
-            m_floor[i] = new Floor(*m_press[i]);
+            m_press[i - 1] = new Press(*m_brain, i);
+            m_floor[i - 1] = new Floor(*m_press[i - 1]);
 
-            vLayout->addWidget(m_floor[i]);
+            layout->addWidget(m_floor[i - 1]);
         }
 
-        setLayout(vLayout);
+        setLayout(layout);
     }
 
 private:
-
-    Press *m_press[13];
-    Floor *m_floor[13];
 
     Brain *m_brain;
 
     Cabin *m_cabin;
     Doors *m_doors;
+
+    QVector<Press *> m_press;
+    QVector<Floor *> m_floor;
 };
 
 int main(int argc, char *argv[])
 {
     QApplication app(argc, argv);
 
-    Start start;
+    Start start(15);
     start.show();
 
     return app.exec();

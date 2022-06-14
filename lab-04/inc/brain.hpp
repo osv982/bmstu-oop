@@ -20,7 +20,7 @@ public:
     };
 
     //! Контроллер лифта
-    Brain(Cabin &, Doors &);
+    Brain(Cabin &, Doors &, int count);
 
     //! Номер этажа
     int floor() const;
@@ -69,6 +69,6 @@ private:
     //! Направление
     bool m_climb = true;
 
-    //! Запрошенные этажи
-    bool m_asked[13] = { false };
+    //! Этажи
+    QVector<bool> m_asked;
 };
